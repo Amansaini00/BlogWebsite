@@ -1,62 +1,92 @@
-import React,{useState} from 'react';
-import{Box,AppBar,Toolbar,Button,Typography,Tabs,Tab} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import {Link} from 'react-router-dom';
-import {useSelector,useDispatch} from 'react-redux';
-import { authActions } from '../redux/store';
-import toast from 'react-hot-toast';
+import React, { useState } from "react";
+import {
+  Box,
+  AppBar,
+  Toolbar,
+  Button,
+  Typography,
+  Tabs,
+  Tab,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../redux/store";
+import toast from "react-hot-toast";
 
 const Header = () => {
-    //globally
-    let isLogin = useSelector(state => state.isLogin);
-    isLogin = isLogin || localStorage.getItem('userId');
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    
-    //state
-    const [value,setValue] = useState()
+  //globally
+  let isLogin = useSelector((state) => state.isLogin);
+  isLogin = isLogin || localStorage.getItem("userId");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-    //logout
-    const handleLogout = () => {
-        try {
-            dispatch(authActions.logout())
-            toast.success('Logout Successfully')
-            navigate('/login')
-            localStorage.clear()
-        } catch (error) {
-            console.log(error);
-        }
+  //state
+  const [value, setValue] = useState();
+
+  //logout
+  const handleLogout = () => {
+    try {
+      dispatch(authActions.logout());
+      toast.success("Logout Successfully");
+      navigate("/login");
+      localStorage.clear();
+    } catch (error) {
+      console.log(error);
     }
+  };
 
   return (
     <>
-        <AppBar position='sticky'>
-            <Toolbar>
-                <Typography variant='h4'>Blog Website</Typography>
-                {isLogin && (
-                <Box display={"flex"} marginLeft="auto" marginRight={'auto'} >
-                    <Tabs textColor='inherit' value={value} onChange={(e,val) => setValue(val)} >
-                         <Tab label="Blogs" LinkComponent={Link} to="/blog" />
-                         <Tab label="My Blogs" LinkComponent={Link} to="/my-blogs" />
-                         <Tab label="Create Blog" LinkComponent={Link} to="/create-blog" />
-                    </Tabs>
-                </Box>
-                )}
-                <Box display={'flex'} marginLeft="auto">
-                    {!isLogin && (<>
-                    <Button sx={{margin:1,color:'white'}} LinkComponent={Link} to="/login" >Login</Button>
-                    <Button sx={{margin:1,color:'white'}} LinkComponent={Link} to="/register" >Register</Button>
-                    </>
-                    )}
-                    {isLogin && (
-                    <Button onClick={handleLogout} sx={{margin:1,color:'white'}}>Logout</Button>
-                    )}
-                </Box>
-                
-            </Toolbar>
-        </AppBar>
+      <AppBar position="sticky">
+        <Toolbar style={{ backgroundColor: "#2d132c" }}>
+          <Typography variant="h4">Blog Website</Typography>
+          {isLogin && (
+            <Box display={"flex"} marginLeft="auto" marginRight={"auto"}>
+              <Tabs
+                textColor="inherit"
+                value={value}
+                onChange={(e, val) => setValue(val)}
+              >
+                <Tab label="Blogs" LinkComponent={Link} to="/blog" />
+                <Tab label="My Blogs" LinkComponent={Link} to="/my-blogs" />
+                <Tab
+                  label="Create Blog"
+                  LinkComponent={Link}
+                  to="/create-blog"
+                />
+              </Tabs>
+            </Box>
+          )}
+          <Box display={"flex"} marginLeft="auto">
+            {!isLogin && (
+              <>
+                <Button
+                  sx={{ margin: 1, color: "white" }}
+                  LinkComponent={Link}
+                  to="/login"
+                >
+                  Login
+                </Button>
+                <Button
+                  sx={{ margin: 1, color: "white" }}
+                  LinkComponent={Link}
+                  to="/register"
+                >
+                  Register
+                </Button>
+              </>
+            )}
+            {isLogin && (
+              <Button onClick={handleLogout} sx={{ margin: 1, color: "white" }}>
+                Logout
+              </Button>
+            )}
+          </Box>
+        </Toolbar>
+      </AppBar>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

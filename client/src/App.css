@@ -1,6 +1,8 @@
 .App {
   text-align: center;
+
 }
+
 
 .App-logo {
   height: 40vmin;
@@ -13,6 +15,9 @@
   }
 }
 
+.MuiPaper-root {
+  background-color: #303841;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
